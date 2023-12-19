@@ -6,8 +6,8 @@ Repository for files used in MiniMonsterPlex pipeline
 Note Requires Python 3.6 or higher
 
 Sample result files are contained within the folder sampleResults. These 4 files are all generated in this pipeline
-
-1. Extract the tarball WheatBlast.tar.gz into the fastq folder.
+1. Use the .gz files within the fastq folder.
+   or (Optional) Extract the tarball WheatBlast.tar.gz into the fastq folder.
 2. Run autoVCF.py: Produces coverage, bam, and vcf files.
    ```
    python3 autoVCF.py
