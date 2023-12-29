@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 22 13:49:59 2023
-
-@author: treyd
-"""
 #importing packages
 import os
 import glob
@@ -13,7 +7,6 @@ import argparse
 #setting up arg parsing for the output folder
 parser = argparse.ArgumentParser(
     prog='MiniMonsterPlex',
-    argument_default='try --simple',
     description=(
         'A pipeline for variant call anaylsis of pathogens'
     ),
@@ -166,6 +159,16 @@ def autoMerge(outPut, file, fileNum):
         append.write(file.split('/')[1].split('.')[0] + 'call.vcf.gz\n')
         
 def sampleBuilder(outPut):
+    command = ['bcftools',
+               'merge',
+               '-l',
+               f'{outPut}/fastqListCall.txt',
+               '-o',
+               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    
     sites =[]
     sitesUsed =[]
     #reads a list of sites you want and only looks at data from there
@@ -313,6 +316,6 @@ for file in fileList:
     fileNum = file.split('/')[1].split('.')[0]
     autoVCF(outPut_Folder, fileNum)
     autoMerge(outPut_Folder, file, fileNum)
-    sampleBuilder(outPut_Folder)
-    autoRAxML(outPut_Folder,RAXML_version)
+sampleBuilder(outPut_Folder)
+autoRAxML(outPut_Folder,RAXML_version)
     
