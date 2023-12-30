@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec 22 13:49:59 2023
+
+@author: treyd
+"""
 #importing packages
 import os
 import glob
@@ -53,8 +59,6 @@ RAXML_version = args.r
 
 #autoVCF function 
 def autoVCF(outPut, fileNum):
-    os.makedirs(f'{outPut}/seperateCall/')
-    os.makedirs(f"{outPut}/Coverage/")
     print(fileNum, " is entering the pipeline")
     #histat 2 + samtools sort call
     command = ['hisat2',
@@ -312,6 +316,8 @@ def autoRAxML(outPut,version):
         
 
 fileList = glob.glob('fastq/*.gz')
+os.makedirs(f'{outPut_Folder}/seperateCall/')
+os.makedirs(f"{outPut_Folder}/Coverage/")
 for file in fileList:
     fileNum = file.split('/')[1].split('.')[0]
     autoVCF(outPut_Folder, fileNum)
