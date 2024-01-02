@@ -160,7 +160,7 @@ def autoMerge(outPut, file, fileNum):
                    shell=True,
                    check=True)
     with open(f'{outPut}/fastqListCall.txt', 'a') as append:
-        append.write(file.split('/')[1].split('.')[0] + 'call.vcf.gz\n')
+        append.write(f'{outPut}/seperateCall/' + file.split('/')[1].split('.')[0] + 'call.vcf.gz\n')
         
 def sampleBuilder(outPut):
     command = ['bcftools',
