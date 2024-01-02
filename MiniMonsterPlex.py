@@ -288,7 +288,7 @@ def metaDataBuilder(metadata_file):
             host = line.split('\t')[2].strip('\n')
             country = line.split('\t')[3].strip('\n')
             metaData[ID] = [species, host, country]
-            return metaData
+        return metaData
         
 def autoRAxML(outPut,version):
     os.mkdir(f'{outPut}/RAXML_results')
