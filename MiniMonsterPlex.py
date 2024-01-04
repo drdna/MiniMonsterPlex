@@ -266,6 +266,8 @@ def sampleBuilder(outPut):
                         quit()
     sample_metadata = metaDataBuilder(metadata_file_name)
     
+    print(sample_metadata)
+    
     os.mkdir(f'{outPut}/built_fasta')
     
     with open(f'{outPut}/built_fasta/builtSeqMeta.fasta', 'a') as writeSeq:
@@ -293,7 +295,7 @@ def metaDataBuilder(metadata_file):
 def autoRAxML(outPut,version):
     os.mkdir(f'{outPut}/RAXML_results')
     #command for running RAXML
-    command = [f'./{version}',
+    command = [f'{version}',
                '-p',
                '1234',
                '-f',
@@ -303,12 +305,15 @@ def autoRAxML(outPut,version):
                '-s',
                f'{outPut}/built_fasta/builtSeqMeta.fasta',
                '-n',
-               f'{outPut}/RAXML_results/pythreads.raxml',
+               'miniMonsterPlex.raxml',
                '-m',
                'GTRGAMMA',
                '-#',
                '1000']
     subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    subprocess.run(f'mv *.raxml {outPut}/RAXML_results/',
                    shell=True,
                    check=True)
                
