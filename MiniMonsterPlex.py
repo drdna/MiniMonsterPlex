@@ -48,7 +48,16 @@ parser.add_argument(
     help=(
         'Name of the RAxML version used'
     ),
-    default='raxmlHPC'
+    required=True
+)
+#command line option for uncompressed files
+parser.add_argument(
+    '-gz',
+    action='store',
+    help=(
+        'Are your fastq files gzipped?'
+    ),
+    default=True
 )
 
 args = parser.parse_args()
@@ -56,6 +65,7 @@ args = parser.parse_args()
 outPut_Folder = args.o
 metadata_file_name = args.m
 RAXML_version = args.r
+gzipped = args.gz
 
 #autoVCF function 
 def autoVCF(outPut, fileNum):
@@ -319,8 +329,20 @@ def autoRAxML(outPut,version):
                
                
         
+if gzipped:
+    fileList = glob.glob('fastq/*.gz')
+elif gzipped == False:
+    fileList = glob.glob('fastq/*.fastq')
+    fileList2 = glob.glob('fastq/*.fq')
+    for file in fileList2:
+        fileList.append(file)
+    for file in fileList:
+        command = ['bgzip',
+                   f'fastq/{file}']
+        subprocess.run(' '.join(command),
+                       shell=True,
+                       check=True)
 
-fileList = glob.glob('fastq/*.gz')
 os.makedirs(f'{outPut_Folder}/seperateCall/')
 os.makedirs(f"{outPut_Folder}/Coverage/")
 for file in fileList:
