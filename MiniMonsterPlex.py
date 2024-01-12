@@ -51,21 +51,21 @@ parser.add_argument(
     required=True
 )
 #command line option for uncompressed files
-parser.add_argument(
-    '-gz',
-    action='store',
-    help=(
-        'Are your fastq files gzipped?'
-    ),
-    default=True
-)
+#parser.add_argument(
+#    '-gz',
+#    action='store_true',
+#    help=(
+#        'Are your fastq files gzipped?'
+#    ),
+#    default=False
+#)
 
 args = parser.parse_args()
 
 outPut_Folder = args.o
 metadata_file_name = args.m
 RAXML_version = args.r
-gzipped = args.gz
+#gzipped = args.gz
 
 #autoVCF function 
 def autoVCF(outPut, fileNum):
@@ -327,22 +327,49 @@ def autoRAxML(outPut,version):
                    shell=True,
                    check=True)
                
-               
+def cleanup(outPut):
+    command =['mv', 
+              'fastq/*.gz',
+              'completed_fastq/']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    command =['mv', 
+              'completed_fastq/*fastq.gz',
+              '*fq.gz']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    command = ['rm',
+               f'{outPut_Folder}/*.bam']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    
+    command = ['cat',
+               'f{outPut}/seperateCall/wheatBlastMergedCallAll.vcf',
+               '>>',
+               'totalMergedCall.vcf']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
         
-if gzipped:
-    fileList = glob.glob('fastq/*.gz')
-elif gzipped == False:
-    fileList = glob.glob('fastq/*.fastq')
-    fileList2 = glob.glob('fastq/*.fq')
-    for file in fileList2:
-        fileList.append(file)
-    for file in fileList:
-        command = ['bgzip',
-                   f'fastq/{file}']
-        subprocess.run(' '.join(command),
-                       shell=True,
-                       check=True)
-
+#if gzipped:
+#    fileList = glob.glob('fastq/*.gz')
+#elif gzipped == False:
+#    fileListTemp = glob.glob('fastq/*.fastq')
+#    fileList2 = glob.glob('fastq/*.fq')
+#    for file in fileList2:
+#        fileListTemp.append(file)
+#    fileList =[]
+#    for file in fileList:
+#        command = ['bgzip',
+#                   f'fastq/{file}']
+#        subprocess.run(' '.join(command),
+#                       shell=True,
+#                       check=True)
+#        fileList.append(file + '.gz')
+fileList = glob.glob('fastq/*.gz')
 os.makedirs(f'{outPut_Folder}/seperateCall/')
 os.makedirs(f"{outPut_Folder}/Coverage/")
 for file in fileList:
@@ -351,4 +378,6 @@ for file in fileList:
     autoMerge(outPut_Folder, file, fileNum)
 sampleBuilder(outPut_Folder)
 autoRAxML(outPut_Folder,RAXML_version)
+cleanup(outPut_Folder)
+
     
