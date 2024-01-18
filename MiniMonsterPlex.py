@@ -305,7 +305,7 @@ def metaDataBuilder(metadata_file):
 def autoRAxML(outPut,version):
     os.mkdir(f'{outPut}/RAXML_results')
     #command for running RAXML
-    command = [f'{version}',
+    command = [f'./{version}',
                '-p',
                '1234',
                '-f',
@@ -334,12 +334,6 @@ def cleanup(outPut):
     subprocess.run(' '.join(command),
                    shell=True,
                    check=True)
-    command =['mv', 
-              'completed_fastq/*fastq.gz',
-              '*fq.gz']
-    subprocess.run(' '.join(command),
-                   shell=True,
-                   check=True)
     command = ['rm',
                f'{outPut_Folder}/*.bam']
     subprocess.run(' '.join(command),
@@ -347,7 +341,7 @@ def cleanup(outPut):
                    check=True)
     
     command = ['cat',
-               'f{outPut}/seperateCall/wheatBlastMergedCallAll.vcf',
+               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf',
                '>>',
                'totalMergedCall.vcf']
     subprocess.run(' '.join(command),
