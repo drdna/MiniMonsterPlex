@@ -280,7 +280,7 @@ def sampleBuilder(outPut):
     
     os.mkdir(f'{outPut}/built_fasta')
     
-    with open(f'{outPut}/built_fasta/builtSeqMeta.fasta', 'a') as writeSeq:
+    with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta', 'a') as writeSeq:
         for read in seqs:
             seqID = read[0].split('/')[1].split('.')[0]
             if seqID in sample_metadata:
@@ -313,7 +313,7 @@ def autoRAxML(outPut,version):
                '-x',
                '1234',
                '-s',
-               f'{outPut}/built_fasta/builtSeqMeta.fasta',
+               f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
                '-n',
                'miniMonsterPlex.raxml',
                '-m',
@@ -344,6 +344,13 @@ def cleanup(outPut):
                f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf',
                '>>',
                'totalMergedCall.vcf']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    command = ['cat',
+               f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
+               '>>',
+               'totalFasta.mfa']
     subprocess.run(' '.join(command),
                    shell=True,
                    check=True)
