@@ -347,6 +347,17 @@ def cleanup(outPut):
     subprocess.run(' '.join(command),
                    shell=True,
                    check=True)
+    command = ['bgzip',
+               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
+    command = ['mv',
+               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf.gz',
+               'processed_vcf/']
+    subprocess.run(' '.join(command),
+                   shell=True,
+                   check=True)
     command = ['cat',
                f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
                '>>',
