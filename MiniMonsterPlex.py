@@ -178,7 +178,7 @@ def sampleBuilder(outPut):
                '-l',
                f'{outPut}/fastqListCall.txt',
                '-o',
-               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf']
+               f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf']
     subprocess.run(' '.join(command),
                    shell=True,
                    check=True)
@@ -190,7 +190,7 @@ def sampleBuilder(outPut):
         for line in read:
             sites.append(line.strip('\n'))
     
-    with open(f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf', 'r') as read:
+    with open(f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf', 'r') as read:
         seqs = list()
         check = False
         for line in read:
@@ -341,19 +341,19 @@ def cleanup(outPut):
                    check=True)
     
     command = ['cat',
-               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf',
+               f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf',
                '>>',
                'totalMergedCall.vcf']
     subprocess.run(' '.join(command),
                    shell=True,
                    check=True)
     command = ['bgzip',
-               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf']
+               f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf']
     subprocess.run(' '.join(command),
                    shell=True,
                    check=True)
     command = ['mv',
-               f'{outPut}/seperateCall/wheatBlastMergedCallAll.vcf.gz',
+               f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf.gz',
                'processed_vcf/']
     subprocess.run(' '.join(command),
                    shell=True,
