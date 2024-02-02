@@ -283,7 +283,7 @@ def sampleBuilder(outPut):
     with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta', 'a') as writeSeq:
         for read in seqs:
             seqID = read[0].split('/')[1].split('.')[0]
-            if seqID in sample_metadata:
+            if (seqID+'hits') in sample_metadata:
                 seqSpecies = sample_metadata[seqID][0]
                 seqHost = sample_metadata[seqID][1]
                 seqCountry = sample_metadata[seqID][2]
@@ -295,10 +295,10 @@ def metaDataBuilder(metadata_file):
     metaData = {}
     with open(metadata_file, 'r') as read:
         for line in read:
-            ID = line.split('\t')[0].strip('\n')
-            species = line.split('\t')[1].strip('\n')
-            host = line.split('\t')[2].strip('\n')
-            country = line.split('\t')[3].strip('\n')
+            ID = line.split(',')[0].strip('\n')
+            species = line.split(',')[1].strip('\n')
+            host = line.split(',')[2].strip('\n')
+            country = line.split(',')[3].strip('\n')
             metaData[ID] = [species, host, country]
         return metaData
         
