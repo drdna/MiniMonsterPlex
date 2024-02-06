@@ -289,7 +289,8 @@ def sampleBuilder(outPut):
                 seqCountry = sample_metadata[seqID][2]
                 writeSeq.write(f'>{seqID}_{seqSpecies}_{seqHost}_{seqCountry}\n{read[1]}\n')
             else:
-                writeSeq.write('>' + read[0].split('/')[1].split('.')[0] + '\n' + read[1] + '\n')
+                writeSeq.write('>' + read[0].split('/')[1].split('.')[0].split('hits')[0]
+                               + '\n' + read[1] + '\n')
                         
 def metaDataBuilder(metadata_file):
     metaData = {}
