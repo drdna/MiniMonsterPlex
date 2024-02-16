@@ -1,6 +1,5 @@
 # MiniMonsterPlex
-Repository for files used in MiniMonsterPlex pipeline
-
+MiniMonsterplex is an automatic variant calling pipeline. 
 ## Quick Start guide
 
 Note Requires Python 3.6 or higher
