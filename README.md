@@ -2,10 +2,15 @@
 MiniMonsterplex is an automatic variant calling pipeline. 
 
 ##Requirements 
+
 [Hisat2](https://anaconda.org/bioconda/hisat2)
+
 [Tabix](https://anaconda.org/bioconda/tabix)
+
 Bgzip
+
 [Bcftools](https://anaconda.org/bioconda/bcftools)
+
 [BedTools](https://anaconda.org/bioconda/bedtools)
 
 ## Quick Start guide
