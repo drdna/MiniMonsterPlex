@@ -17,7 +17,15 @@ Install via Conda:
 * [BedTools](https://anaconda.org/bioconda/bedtools)
 
 ## Data Input
-
+Fastq files with either a .fq or .fastq extension should be gzip compressed, extention .gz, and dropped into the [fastq/](fastq) folder before running. If your files are all uncompressed try using this command in the [fastq/](fastq) folder to bulk compress them:
+```
+bgzip *.fastq
+```
+or
+```
+bgzip *.fq
+```
+Depnding on what extension your files are.
 
 ## Command Line Functions
 ```
