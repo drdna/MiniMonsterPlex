@@ -3,6 +3,7 @@ MiniMonsterplex is an automatic variant calling pipeline.
 
 ## Requirements 
 Install via Conda:
+* Python 3.6 or higher
 * [Hisat2](https://anaconda.org/bioconda/hisat2)
 * [Tabix](https://anaconda.org/bioconda/tabix)
 * [Samtools](https://anaconda.org/bioconda/samtools)
