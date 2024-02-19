@@ -1,6 +1,10 @@
 # MiniMonsterPlex
 MiniMonsterplex is an automatic variant calling pipeline. 
 
+## Table of Contents
+1. [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements)
+2. Command Line Functions
+
 ## Requirements 
 Install via Conda:
 * Python 3.6 or higher
@@ -10,7 +14,7 @@ Install via Conda:
 * [Bcftools](https://anaconda.org/bioconda/bcftools)
 * [BedTools](https://anaconda.org/bioconda/bedtools)
 
-## Command Line Functionality 
+## Command Line Functions
 ```
 Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] -h
 ```
