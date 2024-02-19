@@ -35,7 +35,7 @@ sampleID,species,host,country
 * The ```host``` is the host of the pathogen
 * The ```country``` is the country of origin.
 
-A sample csv file can be found as [metadata.csv](~/metatdata.csv)
+A sample csv file can be found as [metadata.csv](/metatdata.csv)
 ## Quick Start guide
 
 Note Requires Python 3.6 or higher
