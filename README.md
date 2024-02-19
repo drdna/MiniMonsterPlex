@@ -35,7 +35,7 @@ sampleID,species,host,country
 * The ```host``` is the host of the pathogen
 * The ```country``` is the country of origin.
 
-A sample csv file can be found as [metadata.csv](MiniMonsterPlex/metadata.csv)
+A sample csv file can be found as [metadata.csv](metadata.csv)
 ## Quick Start guide
 
 Note Requires Python 3.6 or higher
