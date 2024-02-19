@@ -3,7 +3,8 @@ MiniMonsterplex is an automatic variant calling pipeline.
 
 ## Table of Contents
 1. [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements)
-2. Command Line Functions
+2. [Command Line Functions](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#command-line-functions)
+3. [Metadata Format]()
 
 ## Requirements 
 Install via Conda:
@@ -22,6 +23,19 @@ Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] 
 + ```-o```= Output Folder: User given name for the created output folder. When no option is used it defaults to output. **Note** only two folders can have the same name so only one default folder can exist at a time.
 + ```-m```= Metadata file: Name of the .csv metadata file formatted as shown below.
 
+## Metadata Format
+
+MiniMonsterPlex requires a custom .csv format for metadata:
+```
+sampleID,species,host,country
+104,Po,Oryza,China
+```
+* The ```sampleID``` is the exact same of the fastq file given to MiniMonsterPlex so in this example it would be *104.fastq*.
+* The ```species``` is the sepcies name where the sequencing was done.
+* The ```host``` is the host of the pathogen
+* The ```country``` is the country of origin.
+
+A sample csv file can be found as [metadata.csv](~/metatdata.csv)
 ## Quick Start guide
 
 Note Requires Python 3.6 or higher
