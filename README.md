@@ -3,8 +3,9 @@ MiniMonsterplex is an automatic variant calling pipeline.
 
 ## Table of Contents
 1. [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements)
-2. [Command Line Functions](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#command-line-functions)
-3. [Metadata Format]()
+2. [Data Input]()
+3. [Command Line Functions](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#command-line-functions)
+4. [Metadata Format](https://github.com/TrStans606/MiniMonsterPlex/tree/main#metadata-format)
 
 ## Requirements 
 Install via Conda:
@@ -14,6 +15,9 @@ Install via Conda:
 * [Samtools](https://anaconda.org/bioconda/samtools)
 * [Bcftools](https://anaconda.org/bioconda/bcftools)
 * [BedTools](https://anaconda.org/bioconda/bedtools)
+
+## Data Input
+
 
 ## Command Line Functions
 ```
