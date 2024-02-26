@@ -1,14 +1,14 @@
 ## Plots trees and colors taxa according to lineage affinities
 
 library(ape)
-library(phangorn)
-library(phytools)
-library(RColorBrewer)
-library(tidyverse)
+#library(phangorn)
+#library(phytools)
+#library(RColorBrewer)
+#library(tidyverse)
 library(ggtree)
 library(ggrepel)
-library(viridisLite)
-library(data.table)
+#library(viridisLite)
+#library(data.table)
 library(ggtext)
 
 # read arguments
