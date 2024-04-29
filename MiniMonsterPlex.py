@@ -391,6 +391,13 @@ for file in fileList:
 	autoMerge(outPut_Folder, file, fileNum)
 sampleBuilder(outPut_Folder)
 autoRAxML(outPut_Folder,RAXML_version)
+command = ['Rscript',
+	   '--vanilla',
+	   'MLtree.R',
+	   f'{outPut_Folder}/RAXML_results/RAxML_bestTree.miniMonsterPlex.raxml']
+subprocess.run(' '.join(command),
+			shell=True,
+			check=True)
 cleanup(outPut_Folder)
 
 	
