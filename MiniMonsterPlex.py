@@ -72,116 +72,116 @@ def autoVCF(outPut, fileNum):
 	print(fileNum, " is entering the pipeline")
 	#histat 2 + samtools sort call
 	command = ['hisat2',
-			   '-p',
-			   '2',
-			   '-x',
-			   'index/70-15index',
-			   '-U',
-			   file,
-			   '--max-intronlen',
-			   '20',
-			   '--summary-file',
-			   f'{outPut}/{fileNum}summary.txt',
-			   '--dta-cufflinks',
-			   '|',
-			   'samtools',
-			   'sort',
-			   '-',
-			   '-@',
-			   '2',
-			   '-O',
-			   'bam',
-			   '-o',
-			   f'{outPut}/{fileNum}hits.bam']
+			'-p',
+			'2',
+			'-x',
+			'index/70-15index',
+			'-U',
+			file,
+			'--max-intronlen',
+			'20',
+			'--summary-file',
+			f'{outPut}/{fileNum}summary.txt',
+			'--dta-cufflinks',
+			'|',
+			'samtools',
+			'sort',
+			'-',
+			'-@',
+			'2',
+			'-O',
+			'bam',
+			'-o',
+			f'{outPut}/{fileNum}hits.bam']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	command = ['tabix',
-			   f'{outPut}/{fileNum}hits.bam']
+			f'{outPut}/{fileNum}hits.bam']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	#mpileup call
 	command = ['bcftools',
-			   'mpileup',
-			   '--threads',
-			   '2',
-			   '-d',
-			   '100000',
-			   '-R',
-			   'MonsterPlexRegionsFileSuperCont.txt',
-			   '--annotate',
-			   'FORMAT/AD',
-			   '-f',
-			   'index/70-15.fasta.fasta',
-			   f'{outPut}/{fileNum}hits.bam',
-			   '>>',
-			   f'{outPut}/{fileNum}.vcf']
+			'mpileup',
+			'--threads',
+			'2',
+			'-d',
+			'100000',
+			'-R',
+			'MonsterPlexRegionsFileSuperCont.txt',
+			'--annotate',
+			'FORMAT/AD',
+			'-f',
+			'index/70-15.fasta.fasta',
+			f'{outPut}/{fileNum}hits.bam',
+			'>>',
+			f'{outPut}/{fileNum}.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	#bcftools call command
 	command = ['bcftools',
-			   'call',
-			   '-c',
-			   '--ploidy',
-			   '1',
-			   f'{outPut}/{fileNum}.vcf',
-			   '-o',
-			   f'{outPut}/seperateCall/{fileNum}call.vcf']
+			'call',
+			'-c',
+			'--ploidy',
+			'1',
+			f'{outPut}/{fileNum}.vcf',
+			'-o',
+			f'{outPut}/seperateCall/{fileNum}call.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	#bedtools genome coverage command
 	command = ['bedtools',
-			   'genomecov',
-			   '-ibam',
-			   f'{outPut}/{fileNum}hits.bam',
-			   '-bg',
-			   '>',
-			   f'{outPut}/Coverage/{fileNum}cover.bed']
+			'genomecov',
+			'-ibam',
+			f'{outPut}/{fileNum}hits.bam',
+			'-bg',
+			'>',
+			f'{outPut}/Coverage/{fileNum}cover.bed']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	#zip up the results for use later in the pipeline
 	command =['bgzip',
-			  f'{outPut}/{fileNum}.vcf']
+			f'{outPut}/{fileNum}.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	#tabix the gzipped results
 	command = ['tabix',
-			   f'{outPut}/{fileNum}.vcf.gz']
+			f'{outPut}/{fileNum}.vcf.gz']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 		
 def autoMerge(outPut, file, fileNum):
 	#bg zip the bcftools call result file
 	command = ['bgzip',
-			   f'{outPut}/seperateCall/{fileNum}call.vcf']
+			f'{outPut}/seperateCall/{fileNum}call.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	#tabix the call results
 	command = ['tabix',
-			   f'{outPut}/seperateCall/{fileNum}call.vcf.gz']
+			f'{outPut}/seperateCall/{fileNum}call.vcf.gz']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	with open(f'{outPut}/fastqListCall.txt', 'a') as append:
 		append.write(f'{outPut}/seperateCall/' + file.split('/')[1].split('.')[0] + 'call.vcf.gz\n')
 		
 def sampleBuilder(outPut):
 	command = ['bcftools',
-			   'merge',
-			   '-l',
-			   f'{outPut}/fastqListCall.txt',
-			   '-o',
-			   f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf']
+			'merge',
+			'-l',
+			f'{outPut}/fastqListCall.txt',
+			'-o',
+			f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	
 	sites =[]
 	sitesUsed =[]
@@ -307,65 +307,65 @@ def autoRAxML(outPut,version):
 	os.mkdir(f'{outPut}/RAXML_results')
 	#command for running RAXML
 	command = [f'./{version}',
-			   '-p',
-			   '1234',
-			   '-f',
-			   'a',
-			   '-x',
-			   '1234',
-			   '-s',
-			   f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
-			   '-n',
-			   'miniMonsterPlex.raxml',
-			   '-m',
-			   'GTRGAMMA',
-			   '-#',
-			   '1000']
+			'-p',
+			'1234',
+			'-f',
+			'a',
+			'-x',
+			'1234',
+			'-s',
+			f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
+			'-n',
+			'miniMonsterPlex.raxml',
+			'-m',
+			'GTRGAMMA',
+			'-#',
+			'1000']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	subprocess.run(f'mv *.raxml {outPut}/RAXML_results/',
-				   shell=True,
-				   check=True)
-			   
+				shell=True,
+				check=True)
+			
 def cleanup(outPut):
 	command =['mv', 
-			  'fastq/*.gz',
-			  'completed_fastq/']
+			'fastq/*.gz',
+			'completed_fastq/']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	command = ['rm',
-			   f'{outPut_Folder}/*.bam']
+			f'{outPut_Folder}/*.bam']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	
 	command = ['cat',
-			   f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf',
-			   '>>',
-			   'totalMergedCall.vcf']
+			f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf',
+			'>>',
+			'totalMergedCall.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	command = ['bgzip',
-			   f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf']
+			f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	command = ['mv',
-			   f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf.gz',
-			   'processed_vcf/']
+			f'{outPut}/seperateCall/{outPut}MergedCallAll.vcf.gz',
+			'processed_vcf/']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 	command = ['cat',
-			   f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
-			   '>>',
-			   'totalFasta.mfa']
+			f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
+			'>>',
+			'totalFasta.mfa']
 	subprocess.run(' '.join(command),
-				   shell=True,
-				   check=True)
+				shell=True,
+				check=True)
 		
 #if gzipped:
 #	 fileList = glob.glob('fastq/*.gz')
