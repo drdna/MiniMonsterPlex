@@ -11,10 +11,10 @@ MiniMonsterplex is an automatic variant calling pipeline.
 Install via Conda:
 * Python 3.6 or higher
 * R 3.2.1 or higher
-* R package: ape
-* R package: ggrepel
-* R package: ggtree
-* R package: ggtext
+* R package: [ape](https://cran.r-project.org/web/packages/ape/index.html)
+* R package: [ggrepel](https://cran.r-project.org/web/packages/ggrepel/index.html)
+* R package: [ggtree](https://bioconductor.org/packages/release/bioc/html/ggtree.html)
+* R package: [ggtext](https://cran.r-project.org/web/packages/ggtext/index.html)
 * [Hisat2](https://anaconda.org/bioconda/hisat2)
 * [Tabix](https://anaconda.org/bioconda/tabix)
 * [Samtools](https://anaconda.org/bioconda/samtools)
