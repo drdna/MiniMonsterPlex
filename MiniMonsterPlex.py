@@ -398,6 +398,13 @@ command = ['Rscript',
 subprocess.run(' '.join(command),
 			shell=True,
 			check=True)
+command = ['mv',
+        'NA.pdf',
+        f'{outPut_Folder}/RAXML_results/']
+subprocess.run(' '.join(command),
+                        shell=True,
+                        check=True)
+
 cleanup(outPut_Folder)
 
 	
