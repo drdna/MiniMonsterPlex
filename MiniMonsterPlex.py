@@ -400,7 +400,7 @@ subprocess.run(' '.join(command),
 			check=True)
 command = ['mv',
         'NA.pdf',
-        f'{outPut_Folder}/RAXML_results/']
+        f'{outPut_Folder}/RAXML_results/{outPut_Folder}_tree.pdf']
 subprocess.run(' '.join(command),
                         shell=True,
                         check=True)
