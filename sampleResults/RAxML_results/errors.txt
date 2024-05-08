@@ -1,0 +1,2 @@
+Error in `palette()`:
+! Insufficient values in manual scale. 127 needed but only 25 provided.
