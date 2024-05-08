@@ -54,6 +54,12 @@ sampleID,species,host,country
 * The ```country``` is the country of origin.
 
 A sample csv file can be found as [metadata.csv](metadata.csv)
+
+## TreeBuilding with MLtree
+
+![image](https://github.com/TrStans606/MiniMonsterPlex/assets/100236022/6164b69c-6715-4f4c-9aa3-87a6a44e85f5)
+
+
 ## Quick Start guide
 
 Note Requires Python 3.6 or higher
