@@ -57,7 +57,7 @@ A sample csv file can be found as [metadata.csv](metadata.csv)
 
 ## TreeBuilding with MLtree
 
-![image](https://github.com/TrStans606/MiniMonsterPlex/assets/100236022/6164b69c-6715-4f4c-9aa3-87a6a44e85f5)
+![mlTree_sample](https://github.com/TrStans606/MiniMonsterPlex/assets/100236022/f6d01b13-eb93-42f3-80e8-d21ade5a5689)
 
 
 ## Quick Start guide
