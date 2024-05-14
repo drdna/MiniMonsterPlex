@@ -6,6 +6,8 @@ MiniMonsterplex is an automatic variant calling pipeline.
 2. [Data Input](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#data-input)
 3. [Command Line Functions](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#command-line-functions)
 4. [Metadata Format](https://github.com/TrStans606/MiniMonsterPlex/tree/main#metadata-format)
+5. [RAXML Help](https://github.com/TrStans606/MiniMonsterPlex#raxml)
+6. [Tree building with MLtree](https://github.com/TrStans606/MiniMonsterPlex/tree/main#treebuilding-with-mltree)
 
 ## Requirements 
 Install via Conda:
@@ -42,6 +44,7 @@ Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] 
 + ```-o```= Output Folder: User given name for the created output folder. When no option is used it defaults to output. **Note** only two folders can have the same name so only one default folder can exist at a time.
 + ```-m```= Metadata file: Name of the .csv metadata file formatted as shown below.
 + ```-r```=Raxml version: the name of the standard raxml binary
++ ```-i```=Isolate list: a space seperated list of all isolates you want included in the tree building
 
 ## Metadata Format
 
