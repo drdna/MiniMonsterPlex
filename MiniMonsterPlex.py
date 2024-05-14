@@ -50,6 +50,17 @@ parser.add_argument(
 	),
 	required=True
 )
+
+#command line option for filtering by specific isolates
+parser.add_argument(
+	'-i',
+	action='store',
+    nargs='*',
+	help=(
+		'spaced list of isolates you want included in Tree Building'
+	),
+	required=False
+)
 #command line option for uncompressed files
 #parser.add_argument(
 #	 '-gz',
@@ -65,6 +76,7 @@ args = parser.parse_args()
 outPut_Folder = args.o
 metadata_file_name = args.m
 RAXML_version = args.r
+included_isolates = args.i
 #gzipped = args.gz
 
 #autoVCF function 
@@ -302,31 +314,66 @@ def metaDataBuilder(metadata_file):
 			country = line.split(',')[3].strip('\n')
 			metaData[ID] = [species, host, country]
 		return metaData
-		
-def autoRAxML(outPut,version):
+
+def fasta_filter(outPut,included_isolates):
+    to_write = []
+    with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta','r') as read:
+        for line in read:
+            if line.split('_')[0] in included_isolates:
+                to_write.append([line,next()])
+    with open(f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta','w') as write:
+        for isolate in to_write:
+            write.write(isolate[0])
+            write.write(isolate[1])
+        
+
+def autoRAxML(outPut,version,filtered):
 	os.mkdir(f'{outPut}/RAXML_results')
+	if filtered==False:
 	#command for running RAXML
-	command = [f'./{version}',
-			'-p',
-			'1234',
-			'-f',
-			'a',
-			'-x',
-			'1234',
-			'-s',
-			f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
-			'-n',
-			'miniMonsterPlex.raxml',
-			'-m',
-			'GTRGAMMA',
-			'-#',
-			'1000']
-	subprocess.run(' '.join(command),
-				shell=True,
-				check=True)
-	subprocess.run(f'mv *.raxml {outPut}/RAXML_results/',
-				shell=True,
-				check=True)
+		command = [f'./{version}',
+			 '-p',
+			 '1234',
+			 '-f',
+			 'a',
+			 '-x',
+			 '1234',
+			 '-s',
+			 f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta',
+			 '-n',
+			 'miniMonsterPlex.raxml',
+			 '-m',
+			 'GTRGAMMA',
+			 '-#',
+			 '1000']
+		subprocess.run(' '.join(command),
+				 shell=True,
+				 check=True)
+		subprocess.run(f'mv *.raxml {outPut}/RAXML_results/',
+				 shell=True,
+				 check=True)
+	else:
+		command = [f'./{version}',
+			  '-p',
+			   '1234',
+			   '-f',
+			   'a',
+			   '-x',
+			   '1234',
+			   '-s',
+			   f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta',
+			   '-n',
+			   'miniMonsterPlex.raxml',
+			   '-m',
+			   'GTRGAMMA',
+			   '-#',
+			   '1000']
+		subprocess.run(' '.join(command),
+				  shell=True,
+				  check=True)
+		subprocess.run(f'mv *.raxml {outPut}/RAXML_results/',
+				 shell=True,
+				 check=True)
 			
 def cleanup(outPut):
 	command =['mv', 
@@ -382,6 +429,7 @@ def cleanup(outPut):
 #						shell=True,
 #						check=True)
 #		 fileList.append(file + '.gz')
+filtered = False
 fileList = glob.glob('fastq/*.gz')
 os.makedirs(f'{outPut_Folder}/seperateCall/')
 os.makedirs(f"{outPut_Folder}/Coverage/")
@@ -390,7 +438,10 @@ for file in fileList:
 	autoVCF(outPut_Folder, fileNum)
 	autoMerge(outPut_Folder, file, fileNum)
 sampleBuilder(outPut_Folder)
-autoRAxML(outPut_Folder,RAXML_version)
+if len(included_isolates) > 1:
+	fasta_filter(outPut_Folder, included_isolates)
+	filtered = True
+autoRAxML(outPut_Folder,RAXML_version,filtered)
 command = ['Rscript',
 	   '--vanilla',
 	   'MLtree.R',
