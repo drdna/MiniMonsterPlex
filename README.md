@@ -6,6 +6,7 @@ MiniMonsterplex is an automatic variant calling pipeline.
 2. [Data Input](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#data-input)
 3. [Command Line Functions](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#command-line-functions)
 4. [Metadata Format](https://github.com/TrStans606/MiniMonsterPlex/tree/main#metadata-format)
+5. [RAXML Help](https://github.com/TrStans606/MiniMonsterPlex#raxml)
 
 ## Requirements 
 Install via Conda:
