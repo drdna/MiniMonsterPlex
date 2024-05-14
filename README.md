@@ -44,6 +44,7 @@ Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] 
 + ```-o```= Output Folder: User given name for the created output folder. When no option is used it defaults to output. **Note** only two folders can have the same name so only one default folder can exist at a time.
 + ```-m```= Metadata file: Name of the .csv metadata file formatted as shown below.
 + ```-r```=Raxml version: the name of the standard raxml binary
++ ```-i```=Isolate list: a space seperated list of all isolates you want included in the tree building
 
 ## Metadata Format
 
