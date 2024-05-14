@@ -20,8 +20,8 @@ Install via Conda:
 * [Samtools](https://anaconda.org/bioconda/samtools)
 * [Bcftools](https://anaconda.org/bioconda/bcftools)
 * [BedTools](https://anaconda.org/bioconda/bedtools)
-  Build from source:
-  * [Standard RAXML](https://github.com/stamatak/standard-RAxML)
+Build from source:
+* [Standard RAXML Sequential version:](https://github.com/stamatak/standard-RAxML)
 
 ## Data Input
 Fastq files with either a .fq or .fastq extension should be gzip compressed, extention .gz, and dropped into the [fastq/](fastq) folder before running. If your files are all uncompressed try using this command in the [fastq/](fastq) folder to bulk compress them:
@@ -56,6 +56,12 @@ sampleID,species,host,country
 * The ```country``` is the country of origin.
 
 A sample csv file can be found as [metadata.csv](metadata.csv)
+
+## RAXML 
+* Build the Standard Sequential RAXML version listed in [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements) from source
+* The Stanard, SSE3, or AVX version will work.
+* Move the created exectuable to the MiniMonsterPlex directory
+* provide the exact name of the RAXML binary as the -r argument
 
 ## TreeBuilding with MLtree
 
