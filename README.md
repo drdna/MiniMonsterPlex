@@ -20,6 +20,8 @@ Install via Conda:
 * [Samtools](https://anaconda.org/bioconda/samtools)
 * [Bcftools](https://anaconda.org/bioconda/bcftools)
 * [BedTools](https://anaconda.org/bioconda/bedtools)
+  Build from source:
+  * [Standard RAXML](https://github.com/stamatak/standard-RAxML)
 
 ## Data Input
 Fastq files with either a .fq or .fastq extension should be gzip compressed, extention .gz, and dropped into the [fastq/](fastq) folder before running. If your files are all uncompressed try using this command in the [fastq/](fastq) folder to bulk compress them:
