@@ -38,13 +38,13 @@ Depnding on what extension your files are.
 
 ## Command Line Functions
 ```
-Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] -r [raxml binary name] -h
+Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] -r [raxml binary name] -i [isolate_1] [isolate_2] -h
 ```
 + ```-h```= Help command: including this flag will bring up the help screen.
 + ```-o```= Output Folder: User given name for the created output folder. When no option is used it defaults to output. **Note** only two folders can have the same name so only one default folder can exist at a time.
 + ```-m```= Metadata file: Name of the .csv metadata file formatted as shown below.
 + ```-r```=Raxml version: the name of the standard raxml binary
-+ ```-i```=Isolate list: a space seperated list of all isolates you want included in the tree building
++ ```-i```=Isolate list[Optional]: a space seperated list of all isolates you want included in the tree building. Isolate should be the name of the file you are uploading minus the extenesions: so SRR1571.fq.gz will be SRR1571.
 
 ## Metadata Format
 
