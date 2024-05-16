@@ -55,7 +55,7 @@ parser.add_argument(
 parser.add_argument(
 	'-i',
 	action='store',
-    nargs='*',
+    nargs='+',
 	help=(
 		'spaced list of isolates you want included in Tree Building'
 	),
@@ -294,8 +294,9 @@ def sampleBuilder(outPut):
 	
 	with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta', 'a') as writeSeq:
 		for read in seqs:
-			seqID = read[0].split('/')[1].split('.')[0]
-			if (seqID+'hits') in sample_metadata:
+			seqID = read[0].split('/')[1].split('.')[0].split('hits')[0]
+			print(seqID)
+			if (seqID) in sample_metadata:
 				seqSpecies = sample_metadata[seqID][0]
 				seqHost = sample_metadata[seqID][1]
 				seqCountry = sample_metadata[seqID][2]
@@ -316,15 +317,16 @@ def metaDataBuilder(metadata_file):
 		return metaData
 
 def fasta_filter(outPut,included_isolates):
-    to_write = []
-    with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta','r') as read:
-        for line in read:
-            if line.split('_')[0] in included_isolates:
-                to_write.append([line,next()])
-    with open(f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta','w') as write:
-        for isolate in to_write:
-            write.write(isolate[0])
-            write.write(isolate[1])
+	to_write = []
+	with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta','r') as read:
+		lines = read.readlines()
+		for i in range(0,len(lines)):
+			if lines[i][0] == '>':
+				if lines[i].split('_')[0].split(">")[1].strip() in included_isolates:
+					to_write.append([lines[i],lines[i+1]])
+	with open(f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta','a') as write:
+		for isolate in to_write:
+			write.write(f'{isolate[0]}{isolate[1]}')
         
 
 def autoRAxML(outPut,version,filtered):
@@ -438,7 +440,7 @@ for file in fileList:
 	autoVCF(outPut_Folder, fileNum)
 	autoMerge(outPut_Folder, file, fileNum)
 sampleBuilder(outPut_Folder)
-if len(included_isolates) > 1:
+if len(included_isolates) >= 1:
 	fasta_filter(outPut_Folder, included_isolates)
 	filtered = True
 autoRAxML(outPut_Folder,RAXML_version,filtered)
