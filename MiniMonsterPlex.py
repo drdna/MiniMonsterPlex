@@ -61,6 +61,17 @@ parser.add_argument(
 	),
 	required=False
 )
+#command line option for filtering by specific isolates via a txt
+parser.add_argument(
+	'-il',
+	action='store',
+    nargs='?',
+	help=(
+		'new line seperated txt file of isolates you want in tree building. Argument should be file path'
+	),
+	required=False
+)
+
 #command line option for uncompressed files
 #parser.add_argument(
 #	 '-gz',
@@ -77,6 +88,7 @@ outPut_Folder = args.o
 metadata_file_name = args.m
 RAXML_version = args.r
 included_isolates = args.i
+included_isolates_file = args.il
 #gzipped = args.gz
 
 #autoVCF function 
@@ -431,6 +443,15 @@ def cleanup(outPut):
 #						shell=True,
 #						check=True)
 #		 fileList.append(file + '.gz')
+
+#this makes it so you can use the -i and -il commands at the same time
+if included_isolates == None:
+	included_isolates = []
+if included_isolates_file != None:
+	with open(included_isolates_file, 'r') as read:
+		for line in read:
+			if line.strip() not in included_isolates:
+				included_isolates.append(line.strip())
 filtered = False
 fileList = glob.glob('fastq/*.gz')
 os.makedirs(f'{outPut_Folder}/seperateCall/')
@@ -440,7 +461,8 @@ for file in fileList:
 	autoVCF(outPut_Folder, fileNum)
 	autoMerge(outPut_Folder, file, fileNum)
 sampleBuilder(outPut_Folder)
-if len(included_isolates) >= 1:
+#this starts the filtering process if more then seq id is given
+if len(included_isolates) >= 4:
 	fasta_filter(outPut_Folder, included_isolates)
 	filtered = True
 autoRAxML(outPut_Folder,RAXML_version,filtered)
