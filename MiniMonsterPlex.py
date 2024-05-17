@@ -71,6 +71,16 @@ parser.add_argument(
 	),
 	required=False
 )
+#command line option for filtering by specific hosts
+parser.add_argument(
+	'-hf',
+	action='store',
+    nargs='*',
+	help=(
+		'spaced list of host(s) you want included in Tree Building'
+	),
+	required=False
+)
 
 #command line option for uncompressed files
 #parser.add_argument(
@@ -89,6 +99,7 @@ metadata_file_name = args.m
 RAXML_version = args.r
 included_isolates = args.i
 included_isolates_file = args.il
+included_hosts = args.hf
 #gzipped = args.gz
 
 #autoVCF function 
@@ -328,6 +339,7 @@ def metaDataBuilder(metadata_file):
 			metaData[ID] = [species, host, country]
 		return metaData
 
+#filters the built seq meta by isolate
 def fasta_filter(outPut,included_isolates):
 	to_write = []
 	with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta','r') as read:
@@ -340,6 +352,35 @@ def fasta_filter(outPut,included_isolates):
 		for isolate in to_write:
 			write.write(f'{isolate[0]}{isolate[1]}')
         
+#filters the built seq meta by host
+def fasta_filter_hosts(outPut,included_hosts,filtered):
+	#if this has been pre filtered by isolate it adds a second layer of filtering
+	if filtered:
+		to_write = []
+		with open(f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta','r') as read:
+			lines = read.readlines()
+			for i in range(0,len(lines)):
+				if lines[i][0] == '>':
+					if len(lines[i].split('_')) > 2 and lines[i].split('_')[2].strip() in included_hosts:
+						to_write.append([lines[i],lines[i+1]])
+		with open(f'{outPut}/built_fasta/{outPut}builtSeqFiltered2.fasta','a') as write:
+			for isolate in to_write:
+				write.write(f'{isolate[0]}{isolate[1]}')
+		os.remove(f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta')
+		os.rename(f'{outPut}/built_fasta/{outPut}builtSeqFiltered2.fasta', f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta')
+	#otherwise it acts the same as fasta_filter but with hosts
+	else:
+		to_write = []
+		with open(f'{outPut}/built_fasta/{outPut}builtSeqMeta.fasta','r') as read:
+			lines = read.readlines()
+			for i in range(0,len(lines)):
+				if lines[i][0] == '>':
+					if len(lines[i].split('_')) > 2 and lines[i].split('_')[2].strip() in included_hosts:
+						to_write.append([lines[i],lines[i+1]])
+		with open(f'{outPut}/built_fasta/{outPut}builtSeqFiltered.fasta','a') as write:
+			for isolate in to_write:
+				write.write(f'{isolate[0]}{isolate[1]}')
+
 
 def autoRAxML(outPut,version,filtered):
 	os.mkdir(f'{outPut}/RAXML_results')
@@ -464,6 +505,10 @@ sampleBuilder(outPut_Folder)
 #this starts the filtering process if more then seq id is given
 if len(included_isolates) >= 4:
 	fasta_filter(outPut_Folder, included_isolates)
+	filtered = True
+	
+if len(included_hosts) >= 1:
+	fasta_filter_hosts(outPut_Folder, included_hosts,filtered)
 	filtered = True
 autoRAxML(outPut_Folder,RAXML_version,filtered)
 command = ['Rscript',
