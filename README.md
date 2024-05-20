@@ -38,13 +38,20 @@ Depnding on what extension your files are.
 
 ## Command Line Functions
 ```
-Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] -r [raxml binary name] -i [isolate_1] [isolate_2] -h
+Python3 MiniMonsterPlex.py -o [output folder name] -m [.csv metadata file name] -r [raxml binary name] -i [isolate_1] [isolate_2] -il [example.txt] -hf [host_1] [host_2] -hfl [example.txt] -h
 ```
 + ```-h```= Help command: including this flag will bring up the help screen.
 + ```-o```= Output Folder: User given name for the created output folder. When no option is used it defaults to output. **Note** only two folders can have the same name so only one default folder can exist at a time.
 + ```-m```= Metadata file: Name of the .csv metadata file formatted as shown below.
 + ```-r```=Raxml version: the name of the standard raxml binary
-+ ```-i```=Isolate list[Optional]: a space seperated list of all isolates you want included in the tree building. Isolate should be the name of the file you are uploading minus the extenesions: so SRR1571.fq.gz will be SRR1571.
+Filtering options:
+**Raxml requires a minium of 4 isolates in a multi fasta file to generate a tree. If you do not provide 4 isolates or your chosen host does not have 4 isolates the program will stop and ask if you want to continue without filtering or quit entirely.**
+NOTE: Isolate should be the name of the file you are uploading minus the extenesions: so SRR1571.fq.gz will be SRR1571. Host names should be the exact same as those entered into your metadata file.
++ ```-i```= Isolate list[Optional]: a space seperated list of all isolates you want included in the tree building. 
++ ```-il```= Isolate file[Optional]: a new line seperated txt file of all isolates you want included in the tree building. This can be combined with -i.
++ ```-hf```= Host list[Optional]: a space seperated list of all isolates from the specfic hosts listed you want in tree building.
++ ```-hfl```= Host file[Optional]: a new line seperated txt file of all hosts you want included in the tree building. This can be combined with -hf.
+The host and isolate filtering can be combined. In that case the program will first filter by host and then filter by isolate. 
 
 ## Metadata Format
 
