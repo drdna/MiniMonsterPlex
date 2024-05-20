@@ -82,6 +82,17 @@ parser.add_argument(
 	required=False
 )
 
+#command line option for filtering by specific hosts
+parser.add_argument(
+	'-hfl',
+	action='store',
+    nargs='?',
+	help=(
+		'new line seperated txt file of host(s) you want in tree building. Argument should be file path'
+	),
+	required=False
+)
+
 #command line option for uncompressed files
 #parser.add_argument(
 #	 '-gz',
@@ -100,6 +111,7 @@ RAXML_version = args.r
 included_isolates = args.i
 included_isolates_file = args.il
 included_hosts = args.hf
+included_hosts_file = args.hfl
 #gzipped = args.gz
 
 #autoVCF function 
@@ -493,6 +505,15 @@ if included_isolates_file != None:
 		for line in read:
 			if line.strip() not in included_isolates:
 				included_isolates.append(line.strip())
+#this makes it so you can use the -hf and -hfl commands at the same time
+if included_hosts == None:
+	included_hosts = []
+if included_hosts_file != None:
+	with open(included_hosts_file, 'r') as read:
+		for line in read:
+			if line.strip() not in included_hosts:
+				included_hosts.append(line.strip())
+
 filtered = False
 fileList = glob.glob('fastq/*.gz')
 os.makedirs(f'{outPut_Folder}/seperateCall/')
