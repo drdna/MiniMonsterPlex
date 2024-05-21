@@ -65,10 +65,10 @@ MiniMonsterPlex requires a custom .csv format for metadata:
 sampleID,species,host,country
 104,Po,Oryza,China
 ```
-* The ```sampleID``` is the exact same of the fastq file given to MiniMonsterPlex so in this example it would be *104.fastq*.
-* The ```species``` is the sepcies name where the sequencing was done.
-* The ```host``` is the host of the pathogen
-* The ```country``` is the country of origin.
+* ```sampleID``` is the exact name of the fastq file given to MiniMonsterPlex so in this example it would be *104.fastq*.
+* ```species``` is the name of the species to which the sample belongs.
+* ```host``` is the host genus of the pathogen.
+* ```country``` is the country of origin.
 
 A sample csv file can be found as [metadata.csv](metadata.csv)
 
@@ -76,7 +76,7 @@ A sample csv file can be found as [metadata.csv](metadata.csv)
 * Build the Standard Sequential RAXML version listed in [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements) from source
 * The Stanard, SSE3, or AVX version will work.
 * Move the created exectuable to the MiniMonsterPlex directory
-* provide the exact name of the RAXML binary as the -r argument
+* Provide the exact name of the RAXML binary as the -r argument
 
 ## TreeBuilding with MLtree
 
