@@ -73,7 +73,7 @@ sampleID,species,host,country
 A sample csv file can be found here [metadata.csv](metadata.csv)
 
 ## RAxML 
-* Build the Standard Sequential RAXML version listed in [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements) from source
+* Build the Standard Sequential RAXML version from source as listed in [Requirements](https://github.com/TrStans606/MiniMonsterPlex/blob/main/README.md#requirements)
 * The Standard, SSE3, or AVX version will work.
 * Move the created exectuable into the MiniMonsterPlex directory
 * Provide the exact name of the RAxML binary as the -r argument
