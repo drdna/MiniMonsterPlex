@@ -80,4 +80,4 @@ A sample csv file can be found here [metadata.csv](metadata.csv)
 
 ## TreeBuilding with MLtree
 
-![mlTree_sample](/sampleResults/MyTreeOut.pdf)
+![mlTree_sample](/sampleResults/MyTreeOut.png)
